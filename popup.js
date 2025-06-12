@@ -2,13 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const imageContainer = document.getElementById('image-container');
   const downloadSelectedButton = document.getElementById('download-selected');
   const downloadAllButton = document.getElementById('download-all');
-  const minWidthInput = document.getElementById('min-width');
-  const minHeightInput = document.getElementById('min-height');
+  const minDimensionInput = document.getElementById('min-dimension');
+  const minDimensionValueSpan = document.getElementById('min-dimension-value');
   const refreshButton = document.getElementById('refresh-images');
 
+  // Update span text when slider value changes
+  minDimensionInput.addEventListener('input', () => {
+    minDimensionValueSpan.textContent = `${minDimensionInput.value}px`;
+  });
+
   function fetchAndDisplayImages() {
-    const minWidth = parseInt(minWidthInput.value, 10) || 300;
-    const minHeight = parseInt(minHeightInput.value, 10) || 300;
+    const minDimension = parseInt(minDimensionInput.value, 10);
     imageContainer.innerHTML = ''; // Clear previous images
 
     // Get images from content script
@@ -17,7 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
         imageContainer.textContent = 'Cannot access active tab or tab is not fully loaded. Please ensure the page is loaded and try refreshing.';
         return;
       }
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'getImages', minWidth: minWidth, minHeight: minHeight }, (response) => {
+      // Send a single minDimension value
+      chrome.tabs.sendMessage(tabs[0].id, { action: 'getImages', minDimension: minDimension }, (response) => {
         if (chrome.runtime.lastError) {
           // Check if the error is due to no receiving end, which can happen on special pages
           if (chrome.runtime.lastError.message.includes("Could not establish connection. Receiving end does not exist")) {

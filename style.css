@@ -49,3 +49,17 @@ button {
     width: 60px;
     padding: 4px;
 }
+
+.settings-container input[type="range"] {
+    width: 120px;
+    /* Adjust width as needed */
+    margin-right: 5px;
+}
+
+.settings-container span {
+    display: inline-block;
+    width: 50px;
+    /* Width to display value like 3000px */
+    text-align: right;
+    margin-right: 10px;
+}

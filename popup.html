@@ -10,11 +10,10 @@
 <body>
     <h1>Detected Large Images</h1>
     <div class="settings-container">
-        <label for="min-width">Min Width (px):</label>
-        <input type="number" id="min-width" value="300" min="1">
-        <label for="min-height">Min Height (px):</label>
-        <input type="number" id="min-height" value="300" min="1">
-        <button id="refresh-images">Refresh Images</button>
+        <label for="min-dimension">Min Dimension (px):</label>
+        <input type="range" id="min-dimension" min="10" max="3000" value="300">
+        <span id="min-dimension-value">300px</span>
+        <button id="refresh-images">Refresh</button>
     </div>
     <div id="image-container">
         <!-- Images will be displayed here -->
